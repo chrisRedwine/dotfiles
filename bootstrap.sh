@@ -9,5 +9,4 @@ export PATH="$HOME/.local/bin:$PATH"
 echo "==> Initializing dotfiles..."
 chezmoi init --apply https://github.com/chrisRedwine/dotfiles.git
 
-echo "==> Done! Check ~/.hello"
-cat ~/.hello
+echo "==> Done! Dotfiles applied."
