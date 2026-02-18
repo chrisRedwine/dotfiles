@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euo pipefail
+
+# Install Homebrew if not present
+if ! command -v brew &> /dev/null; then
+    echo "==> Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Install packages from chezmoidata
+echo "==> Installing packages..."
+{{ range .packages.darwin.formulae -}}
+brew install {{ . }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+brew install --cask {{ . }}
+{{ end -}}
+
+echo "==> Packages installed."
