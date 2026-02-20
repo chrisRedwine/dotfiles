@@ -1,0 +1,47 @@
+---
+yaml-files:
+  - "*.yaml"
+  - "*.yml"
+  - .yamllint
+rules:
+  truthy:
+    level: warning
+    ignore: |
+      .github/ISSUE_TEMPLATE/*.yaml
+      .github/ISSUE_TEMPLATE/*.yml
+      .github/workflows/*.yaml
+      .github/workflows/*.yml
+  comments:
+    level: warning
+  document-start:
+    level: warning
+  comments-indentation:
+    level: warning
+  braces: enable
+  colons: enable
+  commas: enable
+  hyphens: enable
+  brackets:
+    forbid: non-empty
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+  new-lines: enable
+  empty-lines: enable
+  indentation:
+    spaces: 2
+    indent-sequences: true
+    check-multi-line-strings: false
+  line-length:
+    max: 120
+  document-end: disable
+  empty-values: disable
+  key-ordering: disable
+  octal-values: enable
+  key-duplicates: enable
+  quoted-strings:
+    quote-type: double
+    required: only-when-needed
+  trailing-spaces: enable
+  new-line-at-end-of-file: enable
