@@ -1,6 +1,6 @@
 # MVP Roadmap — Iterative Dotfiles Bootstrap
 
-**Status**: MVP-1 ✅ COMPLETE — Ready for MVP-2  
+**Status**: MVP-3 ✅ COMPLETE — Ready for MVP-4  
 **Approach**: Small commits, pause for review between steps, test on iMac then MacBook Pro
 
 ---
@@ -8,8 +8,8 @@
 ## Progress
 
 - [x] **MVP-1**: Hello-world chezmoi bootstrap (tested on iMac)
-- [ ] **MVP-2**: `.gitconfig` with per-machine email
-- [ ] **MVP-3**: Brew package installation
+- [x] **MVP-2**: `.gitconfig` with user settings (tested on both machines)
+- [x] **MVP-3**: Brew package installation (declarative package lists)
 - [ ] **MVP-4**: Minimal inventory collection
 - [ ] **MVP-5**: Real dotfiles migrated
 
