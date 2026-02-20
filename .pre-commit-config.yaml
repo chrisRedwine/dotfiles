@@ -1,0 +1,129 @@
+---
+default_install_hook_types:
+  - pre-commit
+  - pre-merge-commit
+  - pre-push
+  - prepare-commit-msg
+  - commit-msg
+  - post-commit
+  - post-checkout
+  - post-merge
+  - post-rewrite
+default_stages:
+  - pre-commit
+fail_fast: false
+
+repos:
+  # Meta hooks
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+        stages:
+          - manual
+      - id: check-useless-excludes
+        stages:
+          - manual
+      - id: identity
+        stages:
+          - manual
+  # Builtin hooks (prek-only)
+  - repo: builtin
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-json5
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: check-xml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+  # Pre-commit hooks (not yet supported by prek builtin hooks)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast
+      - id: check-shebang-scripts-are-executable
+      - id: debug-statement
+  # Local hooks
+  - repo: local
+    hooks:
+      - id: codespell
+        name: codespell
+        description: Checks for common misspellings
+        entry: hooks/codespell.sh
+        language: script
+        pass_filenames: true
+        types:
+          - text
+      - id: git-author
+        name: Ensure git username and email exist
+        entry: hooks/git-author.sh
+        language: script
+        pass_filenames: false
+        always_run: true
+      - id: prettier
+        name: prettier
+        # Because this hook must run in a node environment,
+        # we don't pull it out into a separate script
+        entry: >
+          bash -ec
+          'if ! command -v prettier &> /dev/null; then
+            >&2 echo "The 'prettier' command is not available on this system."
+            exit 1
+          fi
+
+          CI=${CI:-false}
+
+          if [ "$CI" = true ]; then
+            prettier --list-different --ignore-unknown "$@"
+          else
+            set +e
+            prettier --write --ignore-unknown "$@"
+            set -e
+            git add -u
+          fi' --
+        language: node
+        additional_dependencies:
+          - prettier@3.3.0
+        pass_filenames: true
+        require_serial: true
+        types:
+          - text
+      - id: shellcheck
+        name: ShellCheck
+        entry: hooks/shellcheck.sh
+        language: script
+        pass_filenames: true
+        types:
+          - shell
+  # Remote hooks
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.8
+    hooks:
+      - id: actionlint
+  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    rev: v9.23.0
+    hooks:
+      - id: commitlint
+        stages:
+          - commit-msg
+        additional_dependencies:
+          - "@commitlint/config-conventional"
+        args:
+          - --config
+          - .commitlintrc.json
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        name: Validate YAML
+        args:
+          - -c=.yamllint.yaml
