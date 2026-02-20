@@ -32,6 +32,7 @@ dotfiles/
 ### Files
 
 **bootstrap.sh**:
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -49,13 +50,15 @@ cat ~/.hello
 ```
 
 **home/dot_hello.tmpl**:
+
 ```
 Hello from chezmoi on {{ .chezmoi.os }}!
 Hostname: {{ .chezmoi.hostname }}
 ```
 
 **README.md**:
-```markdown
+
+````markdown
 # dotfiles
 
 Personal macOS dotfiles managed with chezmoi.
@@ -65,6 +68,7 @@ Personal macOS dotfiles managed with chezmoi.
 ```bash
 curl -fsSL https://raw.githubusercontent.com/chrisRedwine/dotfiles/main/bootstrap.sh | bash
 ```
+````
 
 ## Machines
 
@@ -72,7 +76,8 @@ curl -fsSL https://raw.githubusercontent.com/chrisRedwine/dotfiles/main/bootstra
 - MacBook Pro (work)
 
 See `.opencode/plans/` for implementation details.
-```
+
+````
 
 ### Test Procedure
 
@@ -100,7 +105,7 @@ See `.opencode/plans/` for implementation details.
 
 [init]
     defaultBranch = main
-```
+````
 
 > **Note**: Replace hostnames with actual values from `scutil --get ComputerName` or `hostname -s`.
 
@@ -120,6 +125,7 @@ See `.opencode/plans/` for implementation details.
 ### Deliverables
 
 **home/.chezmoidata/packages.yaml**:
+
 ```yaml
 packages:
   darwin:
@@ -130,6 +136,7 @@ packages:
 ```
 
 **home/run_onchange_darwin-install-packages.sh.tmpl**:
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -169,6 +176,7 @@ echo "==> Packages installed."
 ### Deliverables
 
 **inventory/macos/collect.sh**:
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -186,6 +194,7 @@ echo "==> Inventory collected to $OUTPUT_DIR"
 ```
 
 **inventory/macos/redact.sh** (basic auto-redaction):
+
 ```bash
 #!/bin/bash
 set -euo pipefail
@@ -203,6 +212,7 @@ echo "==> Redaction complete. Review manually before committing."
 ```
 
 **inventory/output/.gitignore**:
+
 ```
 *
 !.gitignore
@@ -225,12 +235,14 @@ echo "==> Redaction complete. Review manually before committing."
 ### Deliverables
 
 **Migrate from inventory**:
+
 - `.zshrc` (aliases, functions, path setup)
 - `.vimrc` or `.config/nvim/init.vim`
 - `.ssh/config` (structure, not keys)
 - Custom scripts from `~/bin/`
 
 **Update docs**:
+
 - `docs/decisions.md` — Toolchain choices
 - `docs/update-workflow.md` — Bidirectional sync process
 
@@ -256,6 +268,7 @@ echo "export API_KEY={{ onepasswordRead "op://vault/item/field" }}" >> ~/.zshrc
 ```
 
 Or use chezmoi's built-in 1Password support:
+
 ```bash
 chezmoi init --onepassword
 ```

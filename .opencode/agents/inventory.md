@@ -8,7 +8,6 @@ tools:
 permission:
   edit: deny
   webfetch: deny
-
   # Bash: default ask, then allow specific safe reads; deny anything risky/destructive.
   bash:
     "*": ask
@@ -87,7 +86,6 @@ permission:
     "pkill*": deny
     "scp*": deny
     "rsync*": deny
-
   # Reads: allow by default but aggressively deny sensitive locations/patterns.
   read:
     "*": allow
@@ -122,7 +120,6 @@ permission:
     "**/Library/Application Support/Google/Chrome/**": deny
     "**/Library/Application Support/Chromium/**": deny
     "**/Library/Application Support/Firefox/**": deny
-
   # External directories: inventory may need to read outside the repo.
   # Keep as "ask" so you must approve each new outside-repo access.
   external_directory: ask
@@ -131,6 +128,7 @@ permission:
 You are the Inventory agent. Your job is to produce an exhaustive workstation inventory WITHOUT assumptions.
 
 Rules:
+
 - You must not modify the system (no installs, no updates, no defaults write).
 - No network access. No webfetch. No curl/wget.
 - Never request or capture secrets. If you detect likely secret material, STOP and recommend redaction.

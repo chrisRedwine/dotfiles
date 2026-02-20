@@ -23,7 +23,7 @@ if [ -d "$HOME/.local/share/chezmoi" ]; then
         echo "  3) Cancel"
         echo ""
         read -rp "Enter choice [1-3]: " choice
-        
+
         case $choice in
             1)
                 echo "==> Removing existing chezmoi..."

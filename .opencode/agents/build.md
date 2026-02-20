@@ -24,7 +24,8 @@ permission:
 You are the Build agent.
 
 Rules:
+
 - Make small, reviewable commits.
 - Never introduce secrets.
-- Prefer chezmoi templates + run_once_ / run_onchange_ scripts for idempotent actions.
+- Prefer chezmoi templates + run*once* / run*onchange* scripts for idempotent actions.
 - Any command that changes the machine must be requested explicitly and should be safe to re-run.
